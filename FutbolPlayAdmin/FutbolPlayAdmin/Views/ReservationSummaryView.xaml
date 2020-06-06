@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FutbolPlayAdmin.Views.ReservationSummaryView"
+             xmlns:i18n="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             xmlns:local="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             xmlns:common="clr-namespace:FutbolPlay.Common.Behaviors;assembly=FutbolPlay.Common"
+             Style="{StaticResource pageStyle}">
+  <ScrollView>
+    <StackLayout Style="{StaticResource formStyle}" Spacing="5">
+      <StackLayout Spacing="5" Orientation="Horizontal">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="50" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.user.png}" />
+        <Label Text="{Binding Reservation.User.Name}" FontSize="25" TextColor="#131F32" VerticalTextAlignment="Center" />
+      </StackLayout>
+      
+      <StackLayout Spacing="5" Orientation="Horizontal">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="20" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.phone.png}" />
+        <Label Text="{Binding Reservation.User.Phone}" />
+      </StackLayout>
+
+      <StackLayout Spacing="5" Orientation="Horizontal">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="20" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.date.png}" />
+        <Label Text="{Binding Reservation.Date, StringFormat='{0:ddd, dd MMMM hh:mm tt}'}" />
+      </StackLayout>
+
+      <StackLayout Spacing="5" Orientation="Horizontal">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="20" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.court.png}" />
+        <Label Text="{Binding Reservation.Pitch.Description}" />
+      </StackLayout>
+
+      <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="20" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.price.png}" />
+        <Entry x:Name="entValue" Keyboard="Numeric" Text="{Binding Reservation.Price}" HorizontalOptions="FillAndExpand">
+          <Entry.Behaviors>
+            <common:MaxLengthValidatorBehavior MaxLength="18" />
+            <common:NumberValidatorBehavior />
+          </Entry.Behaviors>
+        </Entry>
+      </StackLayout>
+
+      <Label Text="{i18n:Translate reservation_text1}" />
+      <Editor x:Name="ediDescription" Text="{Binding Description}" HeightRequest="60" />
+      
+      <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="20" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.status.png}" />
+        <Picker x:Name="picStatus" SelectedIndex="{Binding ReservationStatusId}" HorizontalOptions="FillAndExpand" />
+      </StackLayout>
+      
+      <Button x:Name="btnChangeStatus"
+              Command="{Binding ChangeStatusCommand}" IsEnabled="{Binding ChangeStatusButtonStatus}"
+              Text="{i18n:Translate change_status}" />
+
+      <Button x:Name="btnRetry" Text="{i18n:Translate retry}" Command="{Binding RetryCommand}" IsVisible="{Binding RetryButtonVisible}"/>
+
+      <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

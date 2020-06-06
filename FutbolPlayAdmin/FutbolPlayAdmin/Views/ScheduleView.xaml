@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FutbolPlayAdmin.Views.ScheduleView"
+             xmlns:i18n="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             xmlns:local="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             Style="{StaticResource pageStyle}">
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness " Android="0,50,0,0" iOS="0,0,0,0" WinPhone="0,50,0,0" />
+  </ContentPage.Padding>
+  
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <Style x:Key="baseButton" TargetType="Button">
+        <Setter Property="BorderColor" Value="White" />
+        <Setter Property="BorderWidth" Value="0.5" />
+        <Setter Property="BorderRadius" Value="1" />
+      </Style>
+      <Style x:Key="availableButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+        <Setter Property="BackgroundColor" Value="#2ebc5d"/>
+      </Style>
+      <Style x:Key="pendingButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+        <Setter Property="BackgroundColor" Value="#f47c3c"/>
+      </Style>
+      <Style x:Key="okButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+        <Setter Property="BackgroundColor" Value="#29abe0"/>
+      </Style>
+      <Style x:Key="runningButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+        <Setter Property="BackgroundColor" Value="#325d88"/>
+      </Style>
+      <Style x:Key="closeButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+        <Setter Property="BackgroundColor" Value="#3e3f3a"/>
+      </Style>
+      <Style x:Key="blockButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+        <Setter Property="BackgroundColor" Value="#d9534f"/>
+        <Setter Property="IsEnabled" Value="false"/>
+      </Style>
+      <Style x:Key="notAvailableButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+        <Setter Property="BackgroundColor" Value="#9E9C9F"/>
+        <Setter Property="IsEnabled" Value="false"/>
+      </Style>
+      <Style x:Key="titleButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+        <Setter Property="BackgroundColor" Value="#131F32"/>
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontSize" Value="12" />
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ContentPage.Content>
+    <StackLayout Spacing="0" HorizontalOptions="FillAndExpand">
+      <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+      <StackLayout Spacing="5" Padding="0,0,0,5"
+                   Orientation="Horizontal"
+                   HorizontalOptions="CenterAndExpand" IsVisible="{Binding DateVisible}">
+
+        <DatePicker VerticalOptions="Center" HorizontalOptions="Center" x:Name="dpDate" Date="{Binding Date}" Format="ddd, dd MMM" />
+        <Image VerticalOptions="Center" HorizontalOptions="Center" Aspect="AspectFit" HeightRequest="15" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.expand.png}" />
+        <Image VerticalOptions="Center" HorizontalOptions="End" Aspect="AspectFit" HeightRequest="25" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.refresh.png}">
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding RefreshCommand}"/>
+          </Image.GestureRecognizers>
+        </Image>
+
+      </StackLayout>
+
+      <StackLayout Spacing="0" IsVisible="{Binding GridVisible}">
+        <Grid x:Name="gridHeader" RowSpacing="0" ColumnSpacing="0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60" />
+          </Grid.ColumnDefinitions>
+
+          <Button Grid.Row="0" Grid.Column="0"
+                  Style="{StaticResource titleButton}" />
+        </Grid>
+
+        <ScrollView x:Name="scrollDetail">
+          <Grid x:Name="gridDetail" RowSpacing="0" ColumnSpacing="0"></Grid>
+        </ScrollView>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Padding="0,0,30,0">
+          <Image x:Name="imgUp" HorizontalOptions="End" Aspect="AspectFit" HeightRequest="40" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.up.png}" />
+          <Image x:Name="imgDown" HorizontalOptions="End" Aspect="AspectFit" HeightRequest="40" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.expand.png}" />
+        </StackLayout>
+
+      </StackLayout>
+
+      <Button x:Name="btnRetry" Text="{i18n:Translate retry}" Command="{Binding RetryCommand}" IsVisible="{Binding RetryButtonVisible}"/>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

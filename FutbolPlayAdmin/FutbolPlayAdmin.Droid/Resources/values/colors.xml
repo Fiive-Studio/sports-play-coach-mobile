@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <color name="white">#fff</color>
+  <color name="black">#000</color>
+  <color name="orange">#ED7F35</color>
+  <color name="blue_coach">#131F32</color>
+  <color name="gray">#ddd</color>
+</resources>

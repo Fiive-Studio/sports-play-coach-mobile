@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FutbolPlayAdmin.Views.ReservationCreateView"
+             xmlns:i18n="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             xmlns:local="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             xmlns:common="clr-namespace:FutbolPlay.Common.Behaviors;assembly=FutbolPlay.Common"
+             Style="{StaticResource pageStyle}">
+  <ScrollView>
+    <StackLayout Style="{StaticResource formStyle}">
+      <SearchBar x:Name="sbName" Placeholder="{i18n:Translate name}" Text="{Binding Name}" SearchCommand="{Binding SearchCommand}">
+        <SearchBar.Behaviors>
+          <common:MaxLengthSearchValidatorBehavior MaxLength="100" />
+        </SearchBar.Behaviors>
+      </SearchBar>
+
+      <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="20" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.phone.png}" />
+        <Entry x:Name="entPhone" Keyboard="Telephone" Placeholder="{i18n:Translate phone}" Text="{Binding Phone}" HorizontalOptions="FillAndExpand">
+          <Entry.Behaviors>
+            <common:MaxLengthValidatorBehavior MaxLength="50" />
+            <common:PhoneValidatorBehavior />
+          </Entry.Behaviors>
+        </Entry>
+      </StackLayout>
+
+      <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="20" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.mail.png}" />
+        <Entry x:Name="entMail" Keyboard="Email" Placeholder="{i18n:Translate mail}" Text="{Binding Mail}" HorizontalOptions="FillAndExpand">
+          <Entry.Behaviors>
+            <common:MaxLengthValidatorBehavior MaxLength="50" />
+            <common:EmailValidatorBehavior />
+          </Entry.Behaviors>
+        </Entry>
+      </StackLayout>
+
+      <StackLayout Spacing="5" Orientation="Horizontal">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="20" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.date.png}" />
+        <Label Text="{Binding Reservation.Date, StringFormat='{0:ddd, dd MMMM hh:mm tt}'}" />
+      </StackLayout>
+
+      <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="20" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.price.png}" />
+        <Entry x:Name="entValue" Keyboard="Numeric" Text="{Binding Value}" HorizontalOptions="FillAndExpand">
+          <Entry.Behaviors>
+            <common:MaxLengthValidatorBehavior MaxLength="18" />
+            <common:NumberValidatorBehavior />
+          </Entry.Behaviors>
+        </Entry>
+      </StackLayout>
+
+      <Label Text="{Binding GettingValue}" IsVisible="{Binding GettingValueVisible}" />
+
+      <Label Text="{i18n:Translate reservation_text1}" />
+      <Editor x:Name="ediDescription" Text="{Binding Description}" HeightRequest="60" />
+
+      <Button x:Name="btnReservation"
+              Command="{Binding DoReservationCommand}" IsEnabled="{Binding ReservationButtonStatus}"
+              Text="{i18n:Translate do_reservation}" />
+
+      <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

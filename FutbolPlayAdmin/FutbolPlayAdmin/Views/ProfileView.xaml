@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FutbolPlayAdmin.Views.ProfileView"
+             xmlns:i18n="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             xmlns:common="clr-namespace:FutbolPlay.Common.Behaviors;assembly=FutbolPlay.Common"
+             Style="{StaticResource pageStyle}">
+  
+  <ScrollView>
+    <StackLayout Style="{StaticResource formStyle}">
+
+      <Entry x:Name="entName"
+             Placeholder="{i18n:Translate name}"
+             Text="{Binding Name}">
+        <Entry.Behaviors>
+          <common:MaxLengthValidatorBehavior MaxLength="50" />
+        </Entry.Behaviors>
+      </Entry>
+
+      <Entry x:Name="entMail"
+             Keyboard="Email"
+             Placeholder="{i18n:Translate mail}"
+             Text="{Binding Mail}">
+        <Entry.Behaviors>
+          <common:MaxLengthValidatorBehavior MaxLength="50" />
+          <common:EmailValidatorBehavior />
+        </Entry.Behaviors>
+      </Entry>
+
+      <Button x:Name="btnUpdate"
+              Text="{i18n:Translate update}"
+              Command="{Binding UpdateCommand}"
+              IsEnabled="{Binding UpdateButtonStatus}"/>
+
+      <ActivityIndicator IsRunning="{Binding IsBusy}"
+                         IsVisible="{Binding IsBusy}" />
+
+      <Label x:Name="lblChangePassword"
+             Text="{i18n:Translate change_password}"
+             XAlign="Center" IsVisible="{Binding ChangePasswordVisible}">
+        <Label.GestureRecognizers>
+          <TapGestureRecognizer Command="{Binding ChangePasswordCommand}" />
+        </Label.GestureRecognizers>
+      </Label>
+
+    </StackLayout>
+  </ScrollView>
+
+</ContentPage>

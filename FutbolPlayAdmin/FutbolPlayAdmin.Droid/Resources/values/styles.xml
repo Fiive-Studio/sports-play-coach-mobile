@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <style name="Theme.Splash" parent="android:Theme">
+    <item name="android:windowBackground">@drawable/splash</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+  <style name="AppTheme" parent="android:Theme.Holo.Light">
+    <item name="android:colorAccent">@color/blue_coach</item>
+    <item name="android:statusBarColor">@color/blue_coach</item>
+    <item name="android:colorPrimaryDark">@color/blue_coach</item>
+    <item name="android:navigationBarColor">@color/blue_coach</item>
+    <item name="android:textColor">@color/blue_coach</item>
+    <item name="android:textColorPrimary">@color/blue_coach</item>
+    <item name="android:colorActivatedHighlight">@color/gray</item>
+  </style>
+</resources>

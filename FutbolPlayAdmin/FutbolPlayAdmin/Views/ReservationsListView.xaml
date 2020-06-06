@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FutbolPlayAdmin.Views.ReservationsListView"
+             xmlns:i18n="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             xmlns:local="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             Style="{StaticResource pageStyle}">
+
+  <StackLayout Style="{StaticResource formStyle}" VerticalOptions="FillAndExpand" Spacing="1" Padding="10,10,10,10">
+    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+    <StackLayout IsVisible="{Binding ImageVisible}">
+      <Image Aspect="AspectFit" HeightRequest="100" Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.icon.png}" />
+      <Label HorizontalOptions="Center" Text="{i18n:Translate reservation_pending_to_confirm}" />
+    </StackLayout>
+
+    <Button x:Name="btnRetry" Text="{i18n:Translate retry}" Command="{Binding RetryCommand}" IsVisible="{Binding RetryButtonVisible}"/>
+
+    <ListView x:Name="lsReservations" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+              IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" HasUnevenRows="True">
+      <ListView.SeparatorVisibility>
+        <OnPlatform x:TypeArguments="SeparatorVisibility " Android="Default" iOS="None" WinPhone="Default" />
+      </ListView.SeparatorVisibility>
+    </ListView>
+  </StackLayout>
+</ContentPage>

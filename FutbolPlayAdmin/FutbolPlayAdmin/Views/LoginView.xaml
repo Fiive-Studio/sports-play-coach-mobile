@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FutbolPlayAdmin.Views.LoginView"
+             xmlns:i18n="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             xmlns:local="clr-namespace:FutbolPlayAdmin.Services;assembly=FutbolPlayAdmin"
+             xmlns:common="clr-namespace:FutbolPlay.Common.Behaviors;assembly=FutbolPlay.Common"
+             Style="{StaticResource pageStyle}">
+
+  <ScrollView>
+    <StackLayout VerticalOptions="Center">
+      <StackLayout Style="{StaticResource formStyle}">
+
+        <Image Aspect="AspectFit"
+             HeightRequest="150"
+             Source="{local:ImageResource FutbolPlayAdmin.Resources.Drawable.arnoldo.png}" />
+
+        <Entry x:Name="entMail"
+               Text="{Binding Mail}"
+               Keyboard="Email"
+               Placeholder="{i18n:Translate mail}">
+          <Entry.Behaviors>
+            <common:MaxLengthValidatorBehavior MaxLength="50" />
+            <common:EmailValidatorBehavior />
+          </Entry.Behaviors>
+        </Entry>
+
+        <Entry x:Name="entPassword"
+               Text="{Binding Password}"
+               Placeholder="{i18n:Translate password}"
+               IsPassword="true">
+          <Entry.Behaviors>
+            <common:MaxLengthValidatorBehavior MaxLength="50" />
+          </Entry.Behaviors>
+        </Entry>
+
+        <Button x:Name="btnLogin"
+                Text="{i18n:Translate login}"
+                Command="{Binding DoLoginCommand}"
+                IsEnabled="{Binding LoginButtonStatus}"/>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}" />
+
+        <Label x:Name="lblForgotPassword"
+               Text="{i18n:Translate forgot_password}"
+               XAlign="Center">
+          <Label.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+          </Label.GestureRecognizers>
+        </Label>
+
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>
